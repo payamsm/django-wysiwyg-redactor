@@ -35,15 +35,13 @@ class RedactorEditor(widgets.Textarea):
         return options
 
     def render(self, name, value, attrs=None):
-        if 'class' not in attrs.keys():
-            attrs['class'] = ''
-
-        attrs['class'] += ' redactor-box'
-
         attrs['data-redactor-options'] = json_dumps(self.options)
 
         html = super(RedactorEditor, self).render(name, value, attrs)
 
+        eclass = re.search("class=\"([^\\\"]*)\"", html)
+        attrs['class'] = '%s %s' % (eclass.group(1), 'redactor-box')
+        html = super(RedactorEditor, self).render(name, value, attrs)
         return mark_safe(html)
 
     def _media(self):

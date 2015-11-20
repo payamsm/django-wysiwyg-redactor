@@ -6,6 +6,7 @@ from django.conf import settings
 
 from redactor.utils import json_dumps
 
+import re
 
 GLOBAL_OPTIONS = getattr(settings, 'REDACTOR_OPTIONS', {})
 
